@@ -6,4 +6,20 @@
     padding: 16px;
     text-align: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+} 
+
+.Person button{
+    background-color: pink;
+    color: white;
+}
+
+.Person button:hover{
+    background-color: orange;
+    color: white;
+}
+
+@media (min-width: 500px){
+    .Person{
+        width: 500px;
+    }
 }
