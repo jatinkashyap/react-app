@@ -6,13 +6,40 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
 
-  state = {
-    persons: [
-      { id: 'qwer1', name: 'Jatin', age: 29 },
-      { id: 'qwer2', name: 'Ginni', age: 27 },
-      { id: 'qwer3', name: 'Avi', age: 2 }
-    ],
-    showPersons : false
+  constructor(props){
+    super(props);
+    console.log("Inside App.js constructor",props);
+
+    this.state = {
+      persons: [
+        { id: 'qwer1', name: 'Jatin', age: 29 },
+        { id: 'qwer2', name: 'Ginni', age: 27 },
+        { id: 'qwer3', name: 'Avi', age: 2 }
+      ],
+      showPersons : false
+    };
+
+  }
+
+  componentWillMount(){
+    console.log("Inside App.js componentWillMount");
+  }
+  
+  componentDidMount(){
+    console.log("Inside App.js componentDidMount");
+  }
+
+  shouldComponentUpdate(nextProps,nextState){
+    console.log("[UPDATE App.js] shouldComponentUpdate" , nextProps,nextState);
+    return true;
+  }
+
+  componentWillUpdate(nextProps,nextState){
+    console.log("[UPDATE App.js] componentWillUpdate" , nextProps,nextState);
+  }
+
+  componentDidUpdate(){
+    console.log("[UPDATE App.js] componentDidUpdate");
   }
 
   deletePersonHandler = (id) => {
@@ -48,6 +75,8 @@ class App extends Component {
   }
 
   render() {
+
+    console.log("Inside App.js render");
 
     let persons=null;
     
