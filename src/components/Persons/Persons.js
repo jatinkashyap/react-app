@@ -6,7 +6,7 @@ class Persons extends Component{
   constructor(props){
     super(props);
     console.log("Inside Persons.js constructor",props);
-
+    this.lastPersonRef =  React.createRef();
   }
 
   componentWillMount(){
@@ -32,16 +32,20 @@ class Persons extends Component{
 
   componentDidUpdate(){
     console.log("[UPDATE Persons.js] componentDidUpdate");
+    this.lastPersonRef.current.focus();
   }
 
   render(){
     console.log("Inside Persons.js render");
     return this.props.persons.map(
-      (person) => {
+      (person,index) => {
         return <Person 
           key={person.id}
           name={person.name}
+          position={index}
+          ref={this.lastPersonRef}
           age={person.age}
+          auth={this.props.isAuth}
           click={() => this.props.clicked(person.id)} 
           changed={(event) => this.props.changed(event,person.id)} />;
       }

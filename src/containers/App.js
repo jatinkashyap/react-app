@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Aux';
 
 
 class App extends Component {
@@ -16,7 +18,9 @@ class App extends Component {
         { id: 'qwer2', name: 'Ginni', age: 27 },
         { id: 'qwer3', name: 'Avi', age: 2 }
       ],
-      showPersons : false
+      showPersons : false,
+      toggleClicked : 0,
+      authenticated : false
     };
 
   }
@@ -52,8 +56,14 @@ class App extends Component {
   }
 
   togglePersonsHandler = () => {
-    const doesShow = this.state.showPersons;
-    this.setState({showPersons : !doesShow});
+    //const doesShow = this.state.showPersons;
+    this.setState((prevState,props) => {
+      return {
+        showPersons : !prevState.showPersons,
+        toggleClicked : prevState.toggleClicked + 1
+      }
+    }
+    );
   }
 
   nameChangedHandler = (event,id) => {
@@ -74,32 +84,38 @@ class App extends Component {
     this.setState({persons : newPersons});
   }
 
+  loginHandler = () => {
+    this.setState({authenticated : true});
+  }
+
   render() {
 
     console.log("Inside App.js render");
 
     let persons=null;
-    
 
     if(this.state.showPersons){
       persons = <Persons 
         persons={this.state.persons} 
         clicked={this.deletePersonHandler} 
-        changed={this.nameChangedHandler} />;
+        changed={this.nameChangedHandler} 
+        isAuth={this.state.authenticated}
+        />;
     }
 
     return (
-      <div className={classes.App}>
+      <Aux >
         <Cockpit
           appTitle={this.props.title}
           persons={this.state.persons}
           showPersons={this.state.showPersons}
           clicked={this.togglePersonsHandler}
+          login={this.loginHandler}
         />
         {persons}
-      </div>
+      </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App,classes.App);
